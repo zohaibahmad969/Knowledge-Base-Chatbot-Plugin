@@ -1,0 +1,377 @@
+/* Chatbot Container */
+.kbc-chatbot-container {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 350px;
+    height: 500px;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    display: flex;
+    flex-direction: column;
+    z-index: 999999;
+    overflow: hidden;
+    display: none; /* Initially hidden */
+    transform: translateY(0);
+    transition: transform 0.3s ease;
+}
+
+/* Position Classes */
+.kbc-bottom-right {
+    bottom: 20px;
+    right: 20px;
+}
+
+.kbc-bottom-left {
+    bottom: 20px;
+    left: 20px;
+}
+
+.kbc-top-right {
+    top: 20px;
+    right: 20px;
+}
+
+.kbc-top-left {
+    top: 20px;
+    left: 20px;
+}
+
+/* Theme Classes */
+.kbc-light-theme {
+    background: #fff;
+    color: #333;
+}
+
+.kbc-dark-theme {
+    background: #2c3e50;
+    color: #fff;
+}
+
+.kbc-dark-theme .kbc-chatbot-header {
+    background: #1a252f;
+    color: #fff;
+}
+
+.kbc-dark-theme .kbc-input {
+    background: #34495e;
+    color: #fff;
+    border-color: #2c3e50;
+}
+
+/* Header */
+.kbc-chatbot-header {
+    padding: 15px;
+    background: #f8f9fa;
+    border-bottom: 1px solid #eee;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+    z-index: 1;
+}
+
+.kbc-chatbot-header h3 {
+    margin: 0;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.kbc-minimize-button,
+.kbc-close-button {
+    background: none;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+    padding: 0 5px;
+    color: inherit;
+    opacity: 0.7;
+    transition: opacity 0.3s;
+}
+
+.kbc-minimize-button:hover,
+.kbc-close-button:hover {
+    opacity: 1;
+}
+
+/* Body */
+.kbc-chatbot-body {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    position: relative;
+    height: 100%;
+}
+
+.kbc-message-area {
+    flex: 1;
+    padding: 15px;
+    overflow-y: auto;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    max-height: 340px;
+}
+
+.kbc-message-area::-webkit-scrollbar {
+    width: 6px;
+}
+
+.kbc-message-area::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.kbc-message-area::-webkit-scrollbar-thumb {
+    background: rgba(0,0,0,0.2);
+    border-radius: 3px;
+}
+
+.kbc-message {
+    margin-bottom: 15px;
+    max-width: 80%;
+    opacity: 0;
+    transform: translateY(10px);
+    animation: messageAppear 0.3s ease forwards;
+}
+
+@keyframes messageAppear {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.kbc-user-message {
+    margin-left: auto;
+}
+
+.kbc-bot-message {
+    margin-right: auto;
+}
+
+.kbc-message-content {
+    padding: 10px 15px;
+    border-radius: 15px;
+    word-wrap: break-word;
+    line-height: 1.4;
+}
+
+.kbc-light-theme .kbc-user-message .kbc-message-content {
+    background: #007bff;
+    color: #fff;
+}
+
+.kbc-light-theme .kbc-bot-message .kbc-message-content {
+    background: #f1f1f1;
+    color: #333;
+}
+
+.kbc-dark-theme .kbc-user-message .kbc-message-content {
+    background: #3498db;
+    color: #fff;
+}
+
+.kbc-dark-theme .kbc-bot-message .kbc-message-content {
+    background: #34495e;
+    color: #fff;
+}
+
+/* Input */
+.kbc-input-area {
+    padding: 15px;
+    border-top: 1px solid #eee;
+    display: flex;
+    gap: 10px;
+    background: #fff;
+    position: relative;
+    z-index: 1;
+    flex-shrink: 0;
+}
+
+.kbc-input {
+    flex: 1;
+    border: 1px solid #ddd;
+    border-radius: 20px;
+    padding: 10px 15px;
+    resize: none;
+    outline: none;
+    font-family: inherit;
+    font-size: 14px;
+    min-height: 20px;
+    max-height: 100px;
+    transition: border-color 0.3s;
+}
+
+.kbc-input:focus {
+    border-color: #007bff;
+}
+
+.kbc-send-button {
+    background: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 20px;
+    padding: 0 20px;
+    cursor: pointer;
+    transition: all 0.3s;
+    align-self: flex-end;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 40px;
+    height: 40px;
+}
+
+.kbc-send-button:hover {
+    background: #0056b3;
+    transform: scale(1.05);
+}
+
+.kbc-send-button:active {
+    transform: scale(0.95);
+}
+
+/* Footer */
+.kbc-chatbot-footer {
+    padding: 0px 15px;
+    flex-shrink: 0;
+    position: fixed;
+    bottom: 90px;
+    z-index: 2;
+}
+
+.kbc-typing-indicator {
+    display: none;
+    align-items: center;
+    gap: 10px;
+    color: #666;
+    font-size: 12px;
+}
+
+.kbc-typing-indicator span {
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    background: #ccc;
+    border-radius: 50%;
+    animation: typing 1s infinite;
+}
+
+.kbc-typing-indicator span:nth-child(2) {
+    animation-delay: 0.2s;
+}
+
+.kbc-typing-indicator span:nth-child(3) {
+    animation-delay: 0.4s;
+}
+
+@keyframes typing {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-5px); }
+}
+
+/* Launcher */
+.kbc-chatbot-launcher {
+    position: fixed;
+    z-index: 999998;
+    bottom: 20px;
+    right: 20px;
+    transition: transform 0.3s ease;
+}
+
+.kbc-chatbot-launcher-button {
+    padding: 12px;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: #007bff;
+    border: none;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.kbc-chatbot-launcher-button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(255,255,255,0.1);
+    transform: scale(0);
+    border-radius: 50%;
+    transition: transform 0.3s ease;
+}
+
+.kbc-chatbot-launcher-button:hover {
+    transform: scale(1.1);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+}
+
+.kbc-chatbot-launcher-button:hover::before {
+    transform: scale(1);
+}
+
+.kbc-chatbot-launcher-button svg {
+    width: 24px;
+    height: 24px;
+    fill: #fff;
+    transition: transform 0.3s ease;
+}
+
+.kbc-chatbot-launcher-button:hover svg {
+    transform: scale(1.1);
+}
+
+/* Calendly Container */
+.kbc-calendly-container {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 350px;
+    height: 630px;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    z-index: 999997;
+    overflow: hidden;
+    display: none;
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+    .kbc-chatbot-container {
+        width: 100%;
+        height: 100%;
+        bottom: 0;
+        right: 0;
+        border-radius: 0;
+    }
+
+    .kbc-message-area {
+        max-height: calc(100vh - 200px);
+    }
+
+    .kbc-chatbot-launcher {
+        bottom: 20px;
+        right: 20px;
+    }
+
+    .kbc-calendly-container {
+        width: 100%;
+        height: 100%;
+        bottom: 0;
+        right: 0;
+        border-radius: 0;
+    }
+} 
